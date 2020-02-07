@@ -226,7 +226,7 @@ std::vector<std::vector<cellDataType>> Matrix2D<cellDataType>::getEnchancedRowEc
 
 template <typename cellDataType>
 void Matrix2D<cellDataType>::selfTranspose() {
-
+    storage = getTransposed();
 }
 
 template <typename cellDataType>
@@ -262,22 +262,6 @@ void Matrix2D<cellDataType>::selfEnchancedRowEchelonForm() {
 
 // ---------------
 // ---------------
-
-/*
-
-
- $
- \begin{pmatrix}
- 5&12&-1&-7&-2 \\
- 3&3&4&3&3 \\
- -6&-10&-4&2&-2 \\
- 4&6&2&4&2 \\
- 2&5&-1&-2&-1 \\
- \end{pmatrix}
- $
-
-
-*/
 
 template <typename cellDataType>
 void Matrix2D<cellDataType>::consoleLatex() {
@@ -322,8 +306,6 @@ std::string Matrix2D<cellDataType>::latex() {
 
     return result;
 }
-
-
 
 #ifdef LOG_OPERATIONS
     template <typename cellDataType>
