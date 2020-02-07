@@ -22,7 +22,7 @@ class Matrix2D {
         Matrix2D(std::vector<std::vector<cellDataType>> storageT); // construct matrix from 2D vector;
         Matrix2D(const Matrix2D& matrixToInitFrom); // construct matrix from another matrix;
 
-        ~Matrix2D();
+//        ~Matrix2D();
 
         // --------------- setters & getters ---------------
         size_t getSizeX();
@@ -249,14 +249,8 @@ void Matrix2D<cellDataType>::selfEnchancedRowEchelonForm() {
 
 
 
-
-
-
-
 // ---------------
 // ---------------
-
-
 
 
 
@@ -265,7 +259,7 @@ void Matrix2D<cellDataType>::selfEnchancedRowEchelonForm() {
 
 template <typename cellDataType>
 void Matrix2D<cellDataType>::consoleLatex() {
-    std::cout << "\begin{pmatrix}" << '\n';
+    std::cout << "\\begin{pmatrix}" << '\n';
     for (size_t i{}; i < storage.size(); ++i) {
         for (size_t j{}; j < storage[0].size(); ++j) {
             std::cout << storage[i][j];
@@ -273,10 +267,10 @@ void Matrix2D<cellDataType>::consoleLatex() {
             if (j < storage[0].size() - 1) {
                 std::cout << '&';
             }
-            std::cout << "\\";
         }
+        std::cout << "\\\\ \n";
     }
-    std::cout << "\end{pmatrix}" << '\n';
+    std::cout << "\\end{pmatrix}" << '\n';
 
 #ifdef LOG_OPERATIONS
     std::cout << output;
@@ -287,7 +281,7 @@ template <typename cellDataType>
 std::string Matrix2D<cellDataType>::latex() {
     std::string result{};
 
-    result += "\begin{pmatrix}\n";
+    result += "\\begin{pmatrix}\n";
     for (size_t i{}; i < storage.size(); ++i) {
         for (size_t j{}; j < storage[0].size(); ++j) {
             result += storage[i][j];
@@ -295,10 +289,10 @@ std::string Matrix2D<cellDataType>::latex() {
             if (j < storage[0].size() - 1) {
                 result += "&";
             }
-            result += "\\";
+            result += "\\\\";
         }
     }
-    result += "\end{pmatrix}\n";
+    result += "\\end{pmatrix}\n";
 
 #ifdef LOG_OPERATIONS
     result += output;
