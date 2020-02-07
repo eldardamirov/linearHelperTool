@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
+#include <iostream>
 
 //#define LOG_OPERATIONS
 
@@ -19,7 +20,7 @@ class Matrix2D {
         Matrix2D(size_t sizeXT, size_t sizeYT); // construct blank Matrix2D;
         Matrix2D(std::vector<cellDataType> singleSequence, bool mode = true); // mode = true - init as column, false - as row;
         Matrix2D(std::vector<std::vector<cellDataType>> storageT); // construct matrix from 2D vector;
-        Matrix2D(const Matrix2D& matrixToInitFrom);
+        Matrix2D(const Matrix2D& matrixToInitFrom); // construct matrix from another matrix;
 
         ~Matrix2D();
 
@@ -60,7 +61,9 @@ class Matrix2D {
         // --------------- output ---------------
         void consoleLatex();
         std::string latex();
-
+    #ifdef LOG_OPERATIONS
+        void eraseBuffer();
+    #endif
     private:
         size_t sizeX{}, sizeY{};
         std::vector<std::vector<cellDataType>> storage{};
@@ -250,6 +253,85 @@ void Matrix2D<cellDataType>::selfEnchancedRowEchelonForm() {
 
 
 
+// ---------------
+// ---------------
 
 
+
+
+
+// ---------------
+// ---------------
+
+/*
+
+
+ $
+ \begin{pmatrix}
+ 5&12&-1&-7&-2 \\
+ 3&3&4&3&3 \\
+ -6&-10&-4&2&-2 \\
+ 4&6&2&4&2 \\
+ 2&5&-1&-2&-1 \\
+ \end{pmatrix}
+ $
+
+
+*/
+
+template <typename cellDataType>
+void Matrix2D<cellDataType>::consoleLatex() {
+    std::cout << "\begin{pmatrix}" << '\n';
+    for (size_t i{}; i < storage.size(); ++i) {
+        for (size_t j{}; j < storage[0].size(); ++j) {
+            std::cout << storage[i][j];
+
+            if (j < storage[0].size() - 1) {
+                std::cout << '&';
+            }
+            std::cout << "\\";
+        }
+    }
+    std::cout << "\end{pmatrix}" << '\n';
+
+#ifdef LOG_OPERATIONS
+    std::cout << output;
+#endif
+}
+
+template <typename cellDataType>
+std::string Matrix2D<cellDataType>::latex() {
+    std::string result{};
+
+    result += "\begin{pmatrix}\n";
+    for (size_t i{}; i < storage.size(); ++i) {
+        for (size_t j{}; j < storage[0].size(); ++j) {
+            result += storage[i][j];
+
+            if (j < storage[0].size() - 1) {
+                result += "&";
+            }
+            result += "\\";
+        }
+    }
+    result += "\end{pmatrix}\n";
+
+#ifdef LOG_OPERATIONS
+    result += output;
+#endif
+
+    return result;
+}
+
+
+
+#ifdef LOG_OPERATIONS
+    template <typename cellDataType>
+    void Matrix2D<cellDataType>::eraseBuffer() {
+        output = "";
+    }
+#endif
+
+// ---------------
+// ---------------
 
