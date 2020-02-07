@@ -7,7 +7,9 @@
 //
 
 #include <stdio.h>
+#include <string>
 #include <vector>
+
 
 
 template <typename cellDataType>
@@ -16,6 +18,7 @@ class Matrix2D {
         Matrix2D(size_t sizeXT, size_t sizeYT); // construct blank Matrix2D;
         Matrix2D(std::vector<cellDataType> singleSequence, bool mode = true); // mode = true - init as column, false - as row;
         Matrix2D(std::vector<std::vector<cellDataType>> storageT); // construct matrix from 2D vector;
+        Matrix2D(const Matrix2D& matrixToInitFrom);
 
         ~Matrix2D();
 
@@ -53,10 +56,66 @@ class Matrix2D {
 
         Matrix2D& product (const Matrix2D& matrixToOperateWith);
 
+        // --------------- output ---------------
+        void consoleLatex();
+        std::string latex();
+
     private:
         size_t sizeX{}, sizeY{};
         std::vector<std::vector<cellDataType>> storage{};
 };
+
+
+// ---------------
+// ---------------
+
+template <typename cellDataType>
+Matrix2D<cellDataType>::Matrix2D(size_t sizeXT, size_t sizeYT) {
+    sizeX = sizeXT;
+    sizeY = sizeYT;
+}
+
+template <typename cellDataType>
+Matrix2D<cellDataType>::Matrix2D(std::vector<cellDataType> singleSequence, bool mode) { // mode = true - init as column, false - as row;
+    if (mode == true) {
+        sizeX = 1;
+        sizeY = singleSequence.size();
+
+        storage.resize(singleSequence.size());
+        for (size_t i{}; i < singleSequence.size(); ++i) {
+            storage[i].push_back(singleSequence[i]);
+        }
+    } else {
+        sizeX = singleSequence.size();
+        sizeY = 1;
+
+        storage.push_back(std::vector<cellDataType>());
+        for (size_t i{}; i < singleSequence.size(); ++i) {
+            storage[0].push_back(singleSequence[i]);
+        }
+
+    }
+}
+
+template <typename cellDataType>
+Matrix2D<cellDataType>::Matrix2D(std::vector<std::vector<cellDataType>> storageT) { // construct matrix from 2D vector;
+    storage = storageT;
+
+    if (!storageT.empty()) {
+        sizeX = storageT[0].size();
+    }
+
+    sizeY = storage.size();
+}
+
+template <typename cellDataType>
+Matrix2D<cellDataType>::Matrix2D(const Matrix2D& matrixToInitFrom) {
+    storage = matrixToInitFrom.storage;
+
+    sizeX = matrixToInitFrom.sizeX;
+    sizeY = matrixToInitFrom.sizeY;
+}
+
 
 // ---------------
 // ---------------
