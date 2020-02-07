@@ -11,7 +11,11 @@
 #include <vector>
 #include <iostream>
 
+#define borderLineDefaultPosition 3
+
 //#define LOG_OPERATIONS
+
+
 
 
 template <typename cellDataType>
@@ -25,8 +29,8 @@ class Matrix2D {
 //        ~Matrix2D();
 
         // --------------- setters & getters ---------------
-         size_t getSizeX() const;
-         size_t getSizeY() const;
+        size_t getSizeX() const;
+        size_t getSizeY() const;
 
         void setSizeX(size_t newSizeX);
         void setSizeY(size_t newSizeY);
@@ -61,8 +65,8 @@ class Matrix2D {
         Matrix2D& product (const Matrix2D& matrixToOperateWith);
 
         // --------------- output & input ---------------
-        void consoleLatex(size_t borderLine = -1);
-        std::string latex(size_t borderLine = -1) const;
+        void consoleLatex(size_t borderLine = borderLineDefaultPosition);
+        std::string latex(size_t borderLine = borderLineDefaultPosition) const;
 
     #ifdef LOG_OPERATIONS
         void eraseBuffer();
@@ -354,7 +358,7 @@ void Matrix2D<cellDataType>::consoleLatex(size_t borderLine) {
 
             if (j < storage[0].size() - 1) {
                 if ((j + 1) == borderLine) {
-                    std::cout << "&\aug&";
+                    std::cout << "&\\aug&";
                 } else {
                     std::cout << "&";
                 }
@@ -380,7 +384,7 @@ std::string Matrix2D<cellDataType>::latex(size_t borderLine) const {
 
             if (j < storage[0].size() - 1) {
                 if ((j + 1) == borderLine) {
-                    result += "&\aug&";
+                    result += "&\\aug&";
                 } else {
                     result += "&";
                 }
