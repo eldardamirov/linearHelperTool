@@ -27,6 +27,7 @@
 		8632855023EDA1F800DC2670 /* linearHelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = linearHelper; sourceTree = BUILT_PRODUCTS_DIR; };
 		8632855323EDA1F800DC2670 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8632855A23EDA27400DC2670 /* matrixCruncher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = matrixCruncher.cpp; sourceTree = "<group>"; };
+		8632855D23EDEE2300DC2670 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +62,7 @@
 			children = (
 				8632855323EDA1F800DC2670 /* main.cpp */,
 				8632855A23EDA27400DC2670 /* matrixCruncher.cpp */,
+				8632855D23EDEE2300DC2670 /* README.md */,
 			);
 			path = linearHelper;
 			sourceTree = "<group>";
