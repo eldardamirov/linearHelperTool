@@ -196,10 +196,10 @@ std::vector<std::vector<cellDataType>> Matrix2D<cellDataType>::getTransposed() {
         return std::vector<std::vector<cellDataType>>(0);
         }
 
-    std::vector<std::vector<cellDataType>> result(storage.size(), std::vector<cellDataType>(storage[0].size()));
+    std::vector<std::vector<cellDataType>> result(storage[0].size(), std::vector<cellDataType>(storage.size()));
     for (size_t i{}; i < storage.size(); ++i) {
-        for (size_t j{}; j < storage.size() - i; ++j) {
-            result[j][i] = result[i][j];
+        for (size_t j{}; j < storage[0].size(); ++j) {
+            result[j][i] = storage[i][j];
         }
     }
 
