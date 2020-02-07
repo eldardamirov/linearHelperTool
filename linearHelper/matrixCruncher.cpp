@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 
+//#define LOG_OPERATIONS
 
 
 template <typename cellDataType>
@@ -63,6 +64,12 @@ class Matrix2D {
     private:
         size_t sizeX{}, sizeY{};
         std::vector<std::vector<cellDataType>> storage{};
+
+    #ifdef LOG_OPERATIONS
+        std::string output{};
+    #endif
+
+
 };
 
 
@@ -93,7 +100,6 @@ Matrix2D<cellDataType>::Matrix2D(std::vector<cellDataType> singleSequence, bool 
         for (size_t i{}; i < singleSequence.size(); ++i) {
             storage[0].push_back(singleSequence[i]);
         }
-
     }
 }
 
@@ -181,9 +187,62 @@ void Matrix2D<cellDataType>::setColumn(size_t columnId, std::vector<cellDataType
 // ---------------
 // ---------------
 
+template <typename cellDataType>
+std::vector<std::vector<cellDataType>> Matrix2D<cellDataType>::getTransposed() {
+    if (storage.empty()) {
+        return std::vector<std::vector<cellDataType>>(0);
+        }
 
+    std::vector<std::vector<cellDataType>> result(storage.size(), std::vector<cellDataType>(storage[0].size()));
+    for (size_t i{}; i < storage.size(); ++i) {
+        for (size_t j{}; j < storage.size() - i; ++j) {
+            result[j][i] = result[i][j];
+        }
+    }
 
+    return result;
+}
 
+template <typename cellDataType>
+std::vector<std::vector<cellDataType>> Matrix2D<cellDataType>::getInversed() {
+    // TODO
+}
+
+template <typename cellDataType>
+std::vector<std::vector<cellDataType>> Matrix2D<cellDataType>::getRowEchelonForm() {
+    // TODO
+}
+
+template <typename cellDataType>
+std::vector<std::vector<cellDataType>> Matrix2D<cellDataType>::getEnchancedRowEchelonForm() {
+    // TODO
+}
+
+// ---------------
+// ---------------
+
+template <typename cellDataType>
+void Matrix2D<cellDataType>::selfTranspose() {
+
+}
+
+template <typename cellDataType>
+void Matrix2D<cellDataType>::selfInverse() {
+    storage = getInversed();
+}
+
+template <typename cellDataType>
+void Matrix2D<cellDataType>::selfRowEchelonForm() {
+    storage = getRowEchelonForm();
+}
+
+template <typename cellDataType>
+void Matrix2D<cellDataType>::selfEnchancedRowEchelonForm() {
+    storage = getEnchancedRowEchelonForm();
+}
+
+// ---------------
+// ---------------
 
 
 
