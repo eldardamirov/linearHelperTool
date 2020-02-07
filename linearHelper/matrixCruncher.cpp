@@ -1,13 +1,21 @@
 //
-//  main.cpp
+//  matrixCruncher.cpp
 //  linearHelper
 //
 //  Created by Эльдар Дамиров on 07.02.2020.
 //  Copyright © 2020 Эльдар Дамиров. All rights reserved.
 //
 
-int main() {
+#include "matrixCruncher.hpp"
 
 
-    return 0;
-}
+
+
+
+
+
+
+
+
+
+
