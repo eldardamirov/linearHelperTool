@@ -11,6 +11,8 @@
 int main() {
     auto t1 = Matrix2D<int>({{1,1,1,1}, {1,1,1,1}});
     std::cout << t1;
+    std::cin >> t1;
+    std::cout << t1;
 //    std::vector<std::vector<int>> temp{{1, 2, 3, 0}, {0, 4, 5, 6}};
 //    Matrix2D<int> myMatrix(temp);
 //    myMatrix.selfTranspose();

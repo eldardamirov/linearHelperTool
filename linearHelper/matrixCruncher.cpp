@@ -39,6 +39,8 @@ class Matrix2D {
         void setRow(size_t rowId, std::vector<cellDataType> newRow);
         void setColumn(size_t columnId, std::vector<cellDataType> newColumn);
 
+        void resizeMatrix(size_t sizeYT, size_t sizeXT);
+
         // --------------- basic transformations ---------------
         void selfTranspose();
         void selfInverse();
@@ -85,6 +87,11 @@ template <typename cellDataType>
 Matrix2D<cellDataType>::Matrix2D(size_t sizeXT, size_t sizeYT) {
     sizeX = sizeXT;
     sizeY = sizeYT;
+
+    storage.resize(sizeYT);
+    for (auto& currentLine : storage) {
+        currentLine.reserve(sizeXT);
+    }
 }
 
 template <typename cellDataType>
@@ -127,6 +134,17 @@ Matrix2D<cellDataType>::Matrix2D(const Matrix2D& matrixToInitFrom) {
     sizeY = matrixToInitFrom.sizeY;
 }
 
+template <typename cellDataType>
+void Matrix2D<cellDataType>::resizeMatrix(size_t sizeYT, size_t sizeXT) {
+    storage.clear();
+    storage.resize(sizeYT);
+    for (auto& currentLine : storage) {
+        currentLine.resize(sizeXT);
+    }
+
+    sizeX = sizeXT;
+    sizeY = sizeYT;
+}
 
 // ---------------
 // ---------------
@@ -173,7 +191,7 @@ std::vector<cellDataType> Matrix2D<cellDataType>::getColumn(size_t columnId) {
 }
 
 template <typename cellDataType>
-void  Matrix2D<cellDataType>::setCellValue(size_t positionY, size_t positionX, cellDataType newValue) {
+void Matrix2D<cellDataType>::setCellValue(size_t positionY, size_t positionX, cellDataType newValue) {
     storage[positionY][positionX] = newValue;
 }
 
@@ -383,6 +401,25 @@ std::ostream& operator<< (std::ostream& outputPipe, const Matrix2D<cellDataType>
     outputPipe << toOutput.latex();
 
     return outputPipe;
+}
+
+template <typename cellDataType>
+std::istream& operator>> (std::istream& inputPipe, Matrix2D<cellDataType>& toInput) {
+
+    size_t sizeXT{}, sizeYT{};
+    inputPipe >> sizeXT >> sizeYT;
+
+    toInput.resizeMatrix(sizeYT, sizeXT);
+    cellDataType currentInput{};
+
+    for (size_t i{}; i < sizeYT; ++i) {
+        for (size_t j{}; j < sizeXT; ++j) {
+            std::cin >> currentInput;
+            toInput.setCellValue(i, j, currentInput);
+        }
+    }
+
+    return inputPipe;
 }
 
 // ---------------
