@@ -58,9 +58,10 @@ class Matrix2D {
 
         Matrix2D& product (const Matrix2D& matrixToOperateWith);
 
-        // --------------- output ---------------
+        // --------------- output & input ---------------
         void consoleLatex();
-        std::string latex();
+        std::string latex() const;
+
     #ifdef LOG_OPERATIONS
         void eraseBuffer();
     #endif
@@ -347,19 +348,19 @@ void Matrix2D<cellDataType>::consoleLatex() {
 }
 
 template <typename cellDataType>
-std::string Matrix2D<cellDataType>::latex() {
+std::string Matrix2D<cellDataType>::latex() const {
     std::string result{};
 
     result += "\\begin{pmatrix}\n";
     for (size_t i{}; i < storage.size(); ++i) {
         for (size_t j{}; j < storage[0].size(); ++j) {
-            result += storage[i][j];
+            result += std::to_string(storage[i][j]);
 
             if (j < storage[0].size() - 1) {
                 result += "&";
             }
-            result += "\\\\";
         }
+        result += "\\\\ \n";
     }
     result += "\\end{pmatrix}\n";
 
@@ -376,6 +377,13 @@ std::string Matrix2D<cellDataType>::latex() {
         output = "";
     }
 #endif
+
+template <typename cellDataType>
+std::ostream& operator<< (std::ostream& outputPipe, const Matrix2D<cellDataType> toOutput) {
+    outputPipe << toOutput.latex();
+
+    return outputPipe;
+}
 
 // ---------------
 // ---------------
