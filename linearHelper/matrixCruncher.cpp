@@ -61,8 +61,8 @@ class Matrix2D {
         Matrix2D& product (const Matrix2D& matrixToOperateWith);
 
         // --------------- output & input ---------------
-        void consoleLatex();
-        std::string latex() const;
+        void consoleLatex(size_t borderLine = -1);
+        std::string latex(size_t borderLine = -1) const;
 
     #ifdef LOG_OPERATIONS
         void eraseBuffer();
@@ -346,14 +346,18 @@ Matrix2D<cellDataType>& Matrix2D<cellDataType>::operator/ (const Matrix2D& matri
 // ---------------
 
 template <typename cellDataType>
-void Matrix2D<cellDataType>::consoleLatex() {
+void Matrix2D<cellDataType>::consoleLatex(size_t borderLine) {
     std::cout << "\\begin{pmatrix}" << '\n';
     for (size_t i{}; i < storage.size(); ++i) {
         for (size_t j{}; j < storage[0].size(); ++j) {
             std::cout << storage[i][j];
 
             if (j < storage[0].size() - 1) {
-                std::cout << '&';
+                if ((j + 1) == borderLine) {
+                    std::cout << "&\aug&";
+                } else {
+                    std::cout << "&";
+                }
             }
         }
         std::cout << "\\\\ \n";
@@ -366,7 +370,7 @@ void Matrix2D<cellDataType>::consoleLatex() {
 }
 
 template <typename cellDataType>
-std::string Matrix2D<cellDataType>::latex() const {
+std::string Matrix2D<cellDataType>::latex(size_t borderLine) const {
     std::string result{};
 
     result += "\\begin{pmatrix}\n";
@@ -375,7 +379,11 @@ std::string Matrix2D<cellDataType>::latex() const {
             result += std::to_string(storage[i][j]);
 
             if (j < storage[0].size() - 1) {
-                result += "&";
+                if ((j + 1) == borderLine) {
+                    result += "&\aug&";
+                } else {
+                    result += "&";
+                }
             }
         }
         result += "\\\\ \n";
