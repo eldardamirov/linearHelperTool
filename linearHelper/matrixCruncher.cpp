@@ -25,8 +25,8 @@ class Matrix2D {
 //        ~Matrix2D();
 
         // --------------- setters & getters ---------------
-        size_t getSizeX();
-        size_t getSizeY();
+         size_t getSizeX() const;
+         size_t getSizeY() const;
 
         void setSizeX(size_t newSizeX);
         void setSizeY(size_t newSizeY);
@@ -64,6 +64,7 @@ class Matrix2D {
     #ifdef LOG_OPERATIONS
         void eraseBuffer();
     #endif
+
     private:
         size_t sizeX{}, sizeY{};
         std::vector<std::vector<cellDataType>> storage{};
@@ -130,17 +131,17 @@ Matrix2D<cellDataType>::Matrix2D(const Matrix2D& matrixToInitFrom) {
 // ---------------
 
 template <typename cellDataType>
-size_t Matrix2D<cellDataType>::getSizeX() {
+size_t Matrix2D<cellDataType>::getSizeX() const {
     return sizeX;
 }
 
 template <typename cellDataType>
-size_t Matrix2D<cellDataType>::getSizeY() {
+size_t Matrix2D<cellDataType>::getSizeY() const {
     return sizeY;
 }
 
 template <typename cellDataType>
-void Matrix2D<cellDataType>::setSizeX(size_t newSizeX) {
+void Matrix2D<cellDataType>::setSizeX (size_t newSizeX) {
     sizeX = newSizeX;
 }
 
@@ -203,6 +204,8 @@ std::vector<std::vector<cellDataType>> Matrix2D<cellDataType>::getTransposed() {
         }
     }
 
+    std::swap(sizeX, sizeY);
+
     return result;
 }
 
@@ -252,7 +255,73 @@ void Matrix2D<cellDataType>::selfEnchancedRowEchelonForm() {
 // ---------------
 // ---------------
 
+template <typename cellDataType>
+Matrix2D<cellDataType>& Matrix2D<cellDataType>::operator+ (const Matrix2D& matrixToOperateWith) {
+    std::vector<std::vector<cellDataType>> result(std::max(sizeY, matrixToOperateWith.getSizeY()), std::vector<cellDataType>(std::max(sizeX, matrixToOperateWith.getSizeX())));
 
+    for (size_t i{}; i < std::min(sizeY, matrixToOperateWith.getSizeY()); ++i) {
+        for (size_t j{}; j < std::min(sizeX, matrixToOperateWith.getSizeX()); ++j) {
+            result[i][j] = storage[i][j] + matrixToOperateWith.storage[i][j];
+        }
+    }
+
+    Matrix2D<cellDataType>* tempMatrix = new Matrix2D<cellDataType>(result);
+    tempMatrix->setSizeX(std::max(sizeX, matrixToOperateWith.getSizeX()));
+    tempMatrix->setSizeY(std::max(sizeY, matrixToOperateWith.getSizeY()));
+
+    return *tempMatrix;
+}
+
+template <typename cellDataType>
+Matrix2D<cellDataType>& Matrix2D<cellDataType>::operator* (const Matrix2D& matrixToOperateWith) {
+    std::vector<std::vector<cellDataType>> result(std::max(sizeY, matrixToOperateWith.getSizeY()), std::vector<cellDataType>(std::max(sizeX, matrixToOperateWith.getSizeX())));
+
+    for (size_t i{}; i < std::min(sizeY, matrixToOperateWith.getSizeY()); ++i) {
+        for (size_t j{}; j < std::min(sizeX, matrixToOperateWith.getSizeX()); ++j) {
+            result[i][j] = storage[i][j] * matrixToOperateWith.storage[i][j];
+        }
+    }
+
+    Matrix2D<cellDataType>* tempMatrix = new Matrix2D<cellDataType>(result);
+    tempMatrix->setSizeX(std::max(sizeX, matrixToOperateWith.getSizeX()));
+    tempMatrix->setSizeY(std::max(sizeY, matrixToOperateWith.getSizeY()));
+
+    return *tempMatrix;
+}
+
+template <typename cellDataType>
+Matrix2D<cellDataType>& Matrix2D<cellDataType>::operator- (const Matrix2D& matrixToOperateWith) {
+    std::vector<std::vector<cellDataType>> result(std::max(sizeY, matrixToOperateWith.getSizeY()), std::vector<cellDataType>(std::max(sizeX, matrixToOperateWith.getSizeX())));
+
+    for (size_t i{}; i < std::min(sizeY, matrixToOperateWith.getSizeY()); ++i) {
+        for (size_t j{}; j < std::min(sizeX, matrixToOperateWith.getSizeX()); ++j) {
+            result[i][j] = storage[i][j] - matrixToOperateWith.storage[i][j];
+        }
+    }
+
+    Matrix2D<cellDataType>* tempMatrix = new Matrix2D<cellDataType>(result);
+    tempMatrix->setSizeX(std::max(sizeX, matrixToOperateWith.getSizeX()));
+    tempMatrix->setSizeY(std::max(sizeY, matrixToOperateWith.getSizeY()));
+
+    return *tempMatrix;
+}
+
+template <typename cellDataType>
+Matrix2D<cellDataType>& Matrix2D<cellDataType>::operator/ (const Matrix2D& matrixToOperateWith) {
+    std::vector<std::vector<cellDataType>> result(std::max(sizeY, matrixToOperateWith.getSizeY()), std::vector<cellDataType>(std::max(sizeX, matrixToOperateWith.getSizeX())));
+
+    for (size_t i{}; i < std::min(sizeY, matrixToOperateWith.getSizeY()); ++i) {
+        for (size_t j{}; j < std::min(sizeX, matrixToOperateWith.getSizeX()); ++j) {
+            result[i][j] = storage[i][j] / matrixToOperateWith.storage[i][j];
+        }
+    }
+
+    Matrix2D<cellDataType>* tempMatrix = new Matrix2D<cellDataType>(result);
+    tempMatrix->setSizeX(std::max(sizeX, matrixToOperateWith.getSizeX()));
+    tempMatrix->setSizeY(std::max(sizeY, matrixToOperateWith.getSizeY()));
+
+    return *tempMatrix;
+}
 
 // ---------------
 // ---------------
