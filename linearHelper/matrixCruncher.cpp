@@ -10,11 +10,11 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <unordered_set>
+#include <functional>
 
-#define borderLineDefaultPosition 3
-
+#define borderLineDefaultPosition 0
 //#define LOG_OPERATIONS
-
 
 
 
@@ -55,6 +55,10 @@ class Matrix2D {
         std::vector<std::vector<cellDataType>> getInversed();
         std::vector<std::vector<cellDataType>> getRowEchelonForm();
         std::vector<std::vector<cellDataType>> getEnchancedRowEchelonForm();
+
+        void scaleRow(size_t rowId, cellDataType scaleValue);
+        void swapRows(size_t rowId1, size_t rowId2);
+        void addOtherRow(size_t rowIdBase, size_t rowIdToAdd, cellDataType scale);
 
         // --------------- binary operations ---------------
         Matrix2D& operator+ (const Matrix2D& matrixToOperateWith);
@@ -245,6 +249,23 @@ std::vector<std::vector<cellDataType>> Matrix2D<cellDataType>::getRowEchelonForm
 template <typename cellDataType>
 std::vector<std::vector<cellDataType>> Matrix2D<cellDataType>::getEnchancedRowEchelonForm() {
     // TODO
+}
+
+template <typename cellDataType>
+void Matrix2D<cellDataType>::scaleRow(size_t rowId, cellDataType scaleValue) {
+    std::transform(storage[rowId].begin(), storage[rowId].end(), storage[rowId].begin(), [&scaleValue](auto& currentElement){return currentElement * scaleValue;});
+}
+
+template <typename cellDataType>
+void Matrix2D<cellDataType>::swapRows(size_t rowId1, size_t rowId2) {
+    std::swap(storage[rowId1], storage[rowId2]);
+}
+
+template <typename cellDataType>
+void Matrix2D<cellDataType>::addOtherRow(size_t rowIdBase, size_t rowIdToAdd, cellDataType scale) {
+    for (size_t i{}; i < sizeX; ++i) {
+        storage[rowIdBase] += storage[rowIdToAdd] * scale;
+    }
 }
 
 // ---------------
