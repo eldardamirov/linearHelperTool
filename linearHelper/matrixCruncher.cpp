@@ -264,7 +264,7 @@ void Matrix2D<cellDataType>::swapRows(size_t rowId1, size_t rowId2) {
 template <typename cellDataType>
 void Matrix2D<cellDataType>::addOtherRow(size_t rowIdBase, size_t rowIdToAdd, cellDataType scale) {
     for (size_t i{}; i < sizeX; ++i) {
-        storage[rowIdBase] += storage[rowIdToAdd] * scale;
+        storage[rowIdBase][i] += storage[rowIdToAdd][i] * scale;
     }
 }
 

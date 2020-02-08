@@ -23,7 +23,10 @@ int main() {
             std::cin >> rowId1 >> rowId2 >> scale;
             t1.addOtherRow(rowId1, rowId2, scale);
         }
-
+        if (operationId == 2) {
+            std::cin >> rowId1 >> rowId2;
+            t1.swapRows(rowId1, rowId2);
+        }
 
         std::cout << t1;
     }
