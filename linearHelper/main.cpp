@@ -11,8 +11,20 @@
 int main() {
     auto t1 = Matrix2D<int>({{-1, -5, 7, 1, 0, 0, 0, 0}, {0, 7, -15, 0, 1, 0, 0, 0}, {-7, 5, -13,
         0, 0, 1, 0, 0}, {-4, -9, -13, 0, 0, 0, 1, 0}, {-14, -11, -14, 0, 0, 0, 0, 1}});
+
+    int operationId{}, rowId1{}, rowId2{}, scale{};
     while (1) {
-        std::cin >> t1;
+        std::cin >> operationId;
+        if (operationId == 0) {
+            std::cin >> rowId1 >> scale;
+            t1.scaleRow(rowId1, scale);
+        }
+        if (operationId == 1) {
+            std::cin >> rowId1 >> rowId2 >> scale;
+            t1.addOtherRow(rowId1, rowId2, scale);
+        }
+
+
         std::cout << t1;
     }
 //    std::vector<std::vector<int>> temp{{1, 2, 3, 0}, {0, 4, 5, 6}};

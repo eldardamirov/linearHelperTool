@@ -56,9 +56,9 @@ class Matrix2D {
         std::vector<std::vector<cellDataType>> getRowEchelonForm();
         std::vector<std::vector<cellDataType>> getEnchancedRowEchelonForm();
 
-        void scaleRow(size_t rowId, cellDataType scaleValue);
+        void scaleRow(size_t rowId, cellDataType scaleValue = 1);
         void swapRows(size_t rowId1, size_t rowId2);
-        void addOtherRow(size_t rowIdBase, size_t rowIdToAdd, cellDataType scale);
+        void addOtherRow(size_t rowIdBase, size_t rowIdToAdd, cellDataType scale = 1);
 
         // --------------- binary operations ---------------
         Matrix2D& operator+ (const Matrix2D& matrixToOperateWith);
