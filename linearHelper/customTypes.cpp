@@ -10,13 +10,23 @@
 #include <cmath>
 #include <numeric>
 
+// ------------- FRACTION;
 template <typename typeOfData>
 class Fraction {
     public:
-    
-    
-    
+        void simplify();
     private:
         typeOfData numerator{}, denominator{};
-    
 };
+
+
+template <typename typeOfData>
+void Fraction<typeOfData>::simplify() {
+    typeOfData scale = std::gcd(numerator, denominator);
+    
+    numerator /= scale;
+    denominator /= scale;
+}
+// ------------- FRACTION;
+
+
