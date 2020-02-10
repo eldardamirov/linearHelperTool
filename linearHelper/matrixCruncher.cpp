@@ -13,7 +13,7 @@
 #include <unordered_set>
 #include <functional>
 
-#define borderLineDefaultPosition 0
+#define borderLineDefaultPosition 3
 //#define LOG_OPERATIONS
 
 
